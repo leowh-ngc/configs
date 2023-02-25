@@ -1,5 +1,5 @@
 local cmp = require 'cmp'
-local lspkind = require 'lspkind'
+--local lspkind = require 'lspkind'
 
 cmp.setup({
     snippet = {
@@ -8,8 +8,11 @@ cmp.setup({
         end
     },
     sources = {
-        { name = 'luasnip', option = { use_show_condition = false, show_autosnippets = true } },
-        { name = 'nvim_lsp' }
+        { name = 'buffer' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
+        --{ name = 'luasnip', option = { use_show_condition = false, show_autosnippets = true } }
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
@@ -33,7 +36,8 @@ cmp.setup({
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer' },
+        { name = 'buffer-lines' }
     }
 })
 
@@ -43,6 +47,20 @@ cmp.setup.cmdline(':', {
         { name = 'path' }
     }, {
         { name = 'cmdline' }
+    })
+})
+
+--cmp.setup.filetype({ "c", "cpp" }, {
+--    sources = {
+--        { name = "buffer-lines" }
+--    }
+--})
+
+cmp.setup.cmdline('/', {
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp_document_symbol' }
+    }, {
+        { name = 'buffer' }
     })
 })
 
